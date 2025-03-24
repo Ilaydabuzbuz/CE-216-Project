@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane  fx:id="addArtifactPane"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.ce216project.AddArtifactViewController"
+           stylesheets="@styles/add-artifact-style.css"
+           hgap="10" vgap="10" alignment="CENTER"
+           styleClass="grid-pane">
+
+    <Label text="Enter attributes:" GridPane.columnSpan="2" style="-fx-font-weight: bold;" />
+
+    <Label text="Enter artifact id:" GridPane.rowIndex="1" />
+    <TextField fx:id="artifactIdField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+    <Label text="Enter artifact name:" GridPane.rowIndex="2" />
+    <TextField fx:id="artifactNameField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+    <Label text="Enter category:" GridPane.rowIndex="3" />
+    <TextField fx:id="categoryField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+    <Label text="Enter civilization:" GridPane.rowIndex="4" />
+    <TextField fx:id="civilizationField" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+    <Label text="Enter discovery location:" GridPane.rowIndex="5" />
+    <TextField fx:id="locationField" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+    <Label text="Enter composition:" GridPane.rowIndex="6" />
+    <TextField fx:id="compositionField" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+    <Label text="Enter discovery date:" GridPane.rowIndex="7" />
+    <TextField fx:id="dateField" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+
+    <Label text="Enter current place:" GridPane.rowIndex="8" />
+    <TextField fx:id="placeField" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+
+    <Label text="Enter dimensions:" GridPane.rowIndex="9" />
+    <TextField fx:id="dimensionsField" GridPane.rowIndex="9" GridPane.columnIndex="1" />
+
+    <Label text="Enter weight:" GridPane.rowIndex="10" />
+    <TextField fx:id="weightField" GridPane.rowIndex="10" GridPane.columnIndex="1" />
+
+    <Label text="Enter tags:" GridPane.rowIndex="11" />
+    <TextField fx:id="tagsField" GridPane.rowIndex="11" GridPane.columnIndex="1" />
+
+    <Button text="Create"
+            GridPane.rowIndex="0" GridPane.columnIndex="1"
+            GridPane.halignment="RIGHT" />
+</GridPane>
+

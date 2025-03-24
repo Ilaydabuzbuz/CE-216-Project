@@ -1,0 +1,70 @@
+/* === VBox (Arka Plan) === */
+.vbox {
+    -fx-background-color: #f4e9d8;
+    -fx-padding: 20;
+}
+
+/* === CheckBox === */
+.check-box {
+    -fx-text-fill: #3b2f23;
+    -fx-font-weight: bold;
+}
+
+/* === CheckBox Hover (isteğe bağlı) === */
+.check-box:hover {
+    -fx-text-fill: #a9742b;
+}
+
+/* === CheckBox === */
+.check-box {
+    -fx-text-fill: #3b2f23;
+    -fx-font-weight: bold;
+}
+
+.check-box:hover {
+    -fx-text-fill: #a9742b;
+}
+
+//* Kutucuk boşken */
+ .check-box .box {
+     -fx-background-color: #e8d6bb;
+     -fx-border-color: #a58c6f;
+     -fx-border-width: 1;
+     -fx-border-radius: 4;
+     -fx-background-radius: 4;
+ }
+
+ /* Seçildiğinde kutunun arka planı ve çerçevesi */
+ .check-box:selected .box {
+     -fx-background-color: #d1af84;
+     -fx-border-color: #a58c6f;
+ }
+
+ /* Sadece seçili durumdayken tik göster */
+ .check-box:selected .mark {
+     -fx-background-color: #3b2f23;
+ }
+
+ /* Tik işareti boşken görünmemeli */
+ .check-box .mark {
+     -fx-background-color: transparent;
+ }
+
+
+
+/* === Buton (Apply) === */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #e6c8a4, #d1af84);
+    -fx-text-fill: #3b2f23;
+    -fx-font-weight: bold;
+    -fx-border-color: #a58c6f;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.5, 1, 1);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #d1af84, #b5936d);
+}

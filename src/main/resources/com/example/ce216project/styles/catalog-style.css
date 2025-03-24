@@ -1,0 +1,82 @@
+/* === Arka Plan (AnchorPane) === */
+.anchor-pane {
+    -fx-background-color: #4e4e4e;
+}
+
+.dark-background {
+     -fx-background-color: #f4e9d8;
+ }
+
+/* === Başlık ve Label'lar === */
+.label {
+    -fx-text-fill: #3b2f23;
+    -fx-font-weight: bold;
+}
+
+/* === Butonlar (tüm sayfada) === */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #e6c8a4, #d1af84);
+    -fx-text-fill: #3b2f23;
+    -fx-font-weight: bold;
+    -fx-border-color: #a58c6f;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.5, 1, 1);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #d1af84, #b5936d);
+}
+
+/* === TextField (Arama Kutusu) === */
+.text-field {
+    -fx-background-color: #e8d6bb;
+    -fx-text-fill: #2f2f2f;
+    -fx-border-color: #a58c6f;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+/* === HBox (üst panel) === */
+.hbox {
+    -fx-background-color: #3a3a3a;
+    -fx-padding: 8;
+}
+
+/* === TableView === */
+.table-view {
+    -fx-background-color: #4e4e4e;
+    -fx-table-cell-border-color: transparent;
+    -fx-control-inner-background: #4e4e4e;
+    -fx-text-background-color: #f4e9d8;
+    -fx-border-color: transparent;
+}
+
+/* === Table Header === */
+.table-view .column-header-background {
+    -fx-background-color: #3a3a3a;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.table-view .label {
+    -fx-text-fill: #f4e9d8;
+    -fx-font-weight: bold;
+}
+
+/* === Table Cells === */
+.table-row-cell {
+    -fx-background-color: #4e4e4e;
+    -fx-text-fill: #f4e9d8;
+}
+
+.table-row-cell:filled:selected, .table-cell:filled:selected {
+    -fx-background-color: #a58c6f;
+    -fx-text-fill: #1f1f1f;
+}

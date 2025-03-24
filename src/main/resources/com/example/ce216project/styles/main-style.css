@@ -1,0 +1,56 @@
+/* === AnchorPane (Tüm Sayfa) Arka Plan === */
+.anchor-pane {
+    -fx-background-color: #1f1f1f; /* Menüyle birebir uyumlu */
+}
+
+.dark-background {
+     -fx-background-color: #f4e9d8;
+ }
+
+
+/* === Başlık Etiketleri === */
+.label {
+    -fx-text-fill: #3a3a3a;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 2, 0.5, 1, 1);
+}
+
+/* === Buton === */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #e6c8a4, #d1af84);
+    -fx-text-fill: #3b2f23;
+    -fx-font-weight: bold;
+    -fx-border-color: #a58c6f;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.5, 1, 1);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #d1af84, #b5936d);
+}
+
+/* === Menü Çubuğu === */
+.menu-bar {
+    -fx-background-color: #3a3a3a;
+}
+
+/* Menü Başlıkları */
+.menu-bar .label {
+    -fx-text-fill: #f4e9d8;
+    -fx-font-size: 13px;
+}
+
+/* Menü Öğeleri */
+.menu-item {
+    -fx-text-fill: #3b2f23;
+    -fx-background-color: #3a3a3a;
+}
+
+.menu-item:hover {
+    -fx-background-color: #292929;
+}
+
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="358.0" prefWidth="352.0" stylesheets="@styles/main-style.css" styleClass="dark-background" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.ce216project.MainViewController">
+    <children>
+      <Label layoutX="42.0" layoutY="117.0" prefHeight="26.0" prefWidth="267.0" text="HISTORICAL ARTIFACT">
+         <font>
+            <Font name="Verdana Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="125.0" layoutY="152.0" prefHeight="26.0" prefWidth="110.0" text="CATALOG">
+         <font>
+            <Font name="Verdana Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="viewCatalogButton" layoutX="98.0" layoutY="229.0" mnemonicParsing="false" onAction="#onViewCatalog" prefHeight="42.0" prefWidth="154.0" text="VIEW CATALOG">
+         <font>
+            <Font name="Verdana" size="15.0" />
+         </font>
+      </Button>
+      <MenuBar layoutX="-5.0" layoutY="1.0" prefHeight="26.0" prefWidth="386.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="importJsonMenuItem" mnemonicParsing="false" onAction="#onImportJson" text="Import JSON File" />
+                  <MenuItem mnemonicParsing="false" text="Export JSON File" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#onAbout" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>

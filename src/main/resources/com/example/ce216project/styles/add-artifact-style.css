@@ -1,0 +1,37 @@
+/* === GridPane (sayfa arka planı) === */
+.grid-pane {
+    -fx-background-color: #f4e9d8;
+    -fx-padding: 20;
+}
+
+/* === Label'lar (başlık ve input açıklamaları) === */
+.label {
+    -fx-text-fill: #3b2f23;
+    -fx-font-weight: bold;
+}
+
+/* === TextField'lar === */
+.text-field {
+    -fx-background-color: #e8d6bb;
+    -fx-text-fill: #2f2f2f;
+    -fx-border-color: #a58c6f;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+/* === Buton === */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #e6c8a4, #d1af84);
+    -fx-text-fill: #3b2f23;
+    -fx-font-weight: bold;
+    -fx-border-color: #a58c6f;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.5, 1, 1);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #d1af84, #b5936d);
+}
