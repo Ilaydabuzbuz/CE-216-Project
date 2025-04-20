@@ -1,19 +1,36 @@
 package com.example.ce216project;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CatalogViewController {
-
+    private static final String ARTIFACTS_DIRECTORY = FileIOController.CONTENT_DIR;
+    public static List<Artifacts> artifactsList = new ArrayList<>();
+    public ObservableList<Artifacts> artifactObservableList;
+    public final Gson gson = new Gson();
     @FXML
     private Button addNewArtifactButton;
     @FXML
@@ -24,7 +41,119 @@ public class CatalogViewController {
     private Button resetButton;
     @FXML
     private Button helpButton;
+    @FXML
+    private TableView<Artifacts> artifactsTableView;
 
+
+    @FXML
+    private TableColumn<Artifacts, String> col_image;
+    @FXML
+    private TableColumn<Artifacts, String> col_id;
+    @FXML
+    private TableColumn<Artifacts, String> col_name;
+    @FXML
+    private TableColumn<Artifacts, String> col_category;
+    @FXML
+    private TableColumn<Artifacts, String> col_civilization;
+    @FXML
+    private TableColumn<Artifacts, String> col_discovery;
+    @FXML
+    private TableColumn<Artifacts, String> col_composition;
+    @FXML
+    private TableColumn<Artifacts, String> col_date;
+    @FXML
+    private TableColumn<Artifacts, String> col_place;
+    @FXML
+    private TableColumn<Artifacts, String> col_dimensions;
+    @FXML
+    private TableColumn<Artifacts, String> col_weight;
+    @FXML
+    private TableColumn<Artifacts, String> col_tags;
+
+    public void initialize(){
+        artifactObservableList = FXCollections.observableArrayList();
+
+        col_id.setCellValueFactory(new PropertyValueFactory<>("artifactid"));
+        col_name.setCellValueFactory(new PropertyValueFactory<>("artifactName"));
+        col_category.setCellValueFactory(new PropertyValueFactory<>("category"));
+        col_civilization.setCellValueFactory(new PropertyValueFactory<>("civilization"));
+        col_discovery.setCellValueFactory(new PropertyValueFactory<>("discoveryLocation"));
+        col_composition.setCellValueFactory(new PropertyValueFactory<>("composition"));
+        col_date.setCellValueFactory(new PropertyValueFactory<>("discoveryDate"));
+        col_place.setCellValueFactory(new PropertyValueFactory<>("currentPlace"));
+        col_dimensions.setCellValueFactory(new PropertyValueFactory<>("dimensions"));
+        col_weight.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        col_tags.setCellValueFactory(new PropertyValueFactory<>("tags"));
+        col_image.setCellValueFactory(new PropertyValueFactory<>("imagePath"));
+        col_image.setCellFactory(column -> new TableCell<Artifacts, String>() {
+        private final ImageView imageView = new ImageView();
+        {
+            imageView.setFitWidth(60);
+            imageView.setFitHeight(60);
+            imageView.setPreserveRatio(true);
+        }
+
+        @Override
+        protected void updateItem(String imagePath, boolean empty) {
+            super.updateItem(imagePath, empty);
+            if (empty || imagePath == null || imagePath.isEmpty()) {
+                setGraphic(null);
+            } else {
+                try {
+                    Image image = new Image(new File(imagePath).toURI().toString(), 60, 60, true, true);
+                    imageView.setImage(image);
+                    setGraphic(imageView);
+                } catch (Exception e) {
+                    System.err.println("Failed to load image: " + imagePath);
+                    setGraphic(null);
+                }
+            }
+        }
+    });
+
+        artifactsTableView.setItems(artifactObservableList);
+        loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY));
+    }
+
+    private void loadArtifactsFromDirectory(Path directoryPath) {
+        if (!Files.isDirectory(directoryPath)) {
+            System.out.println("File path error");
+            return;
+        }
+        System.out.println("Loading artifacts from: " + directoryPath.toAbsolutePath());
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(directoryPath, "*.json")) {
+            int loadedCount = 0;
+            int errorCount = 0;
+            for (Path filePath : stream) {
+                System.out.println("Processing file: " + filePath.getFileName());
+                try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+                    Artifacts artifact = gson.fromJson(reader, Artifacts.class);
+
+                    if (artifact != null && artifact.getArtifactName() != null) {
+                        artifactsList.add(artifact);
+                        loadedCount++;
+                    } else {
+                        System.err.println("Warning: Invalid or incomplete artifact data in file: " + filePath.getFileName());
+                        errorCount++;
+                    }
+
+                } catch (JsonSyntaxException e) {
+                    System.err.println("Error parsing JSON file: " + filePath.getFileName() + " - " + e.getMessage());
+                    errorCount++;
+                } catch (IOException e) {
+                    System.err.println("Error reading file: " + filePath.getFileName() + " - " + e.getMessage());
+                    errorCount++;
+                }
+            }
+            artifactObservableList.addAll(artifactsList);
+            System.out.println("Finished loading. Loaded " + loadedCount + " artifacts. Encountered " + errorCount + " errors.");
+
+        } catch (IOException e) {
+            System.out.println("Loading Error");
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void onAddNewArtifact(ActionEvent event) {
