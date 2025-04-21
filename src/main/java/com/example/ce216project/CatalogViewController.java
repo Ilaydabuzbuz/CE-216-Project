@@ -32,6 +32,8 @@ public class CatalogViewController {
     public ObservableList<Artifacts> artifactObservableList;
     public final Gson gson = new Gson();
     @FXML
+    private TextField searchField;
+    @FXML
     private Button addNewArtifactButton;
     @FXML
     private Button filterByTagsButton;
@@ -207,5 +209,36 @@ public class CatalogViewController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void search() {
+        String query = searchField.getText().toLowerCase().trim();
+        ObservableList<Artifacts> filteredList = FXCollections.observableArrayList();
+
+        if(query.isEmpty()){
+            filteredList.addAll(artifactsList);
+        } else {
+            for (Artifacts artifact : artifactsList) {
+                if (artifact.getArtifactName().toLowerCase().contains(query) ||
+                        artifact.getCategory().toLowerCase().contains(query) ||
+                        artifact.getArtifactid().toLowerCase().contains(query) ||
+                        artifact.getCivilization().toLowerCase().contains(query) ||
+                        artifact.getComposition().toLowerCase().contains(query) ||
+                        artifact.getDiscoveryLocation().toLowerCase().contains(query) ||
+                        artifact.getCurrentPlace().toLowerCase().contains(query) ||
+                        artifact.getDimensions().toLowerCase().contains(query) ||
+                        artifact.getDiscoveryDate().toLowerCase().contains(query) ||
+                        artifact.getWeight().toString().contains(query) ||
+                        artifact.getTags().contains(query)) {
+                    filteredList.add(artifact);
+                    artifactsTableView.setItems(filteredList);
+                }
+            }
+        }
+
+    }
+
+    private void onSearch(ActionEvent event) {
+        search();
     }
 }
