@@ -1,8 +1,5 @@
 package com.example.ce216project;
 
-import com.google.gson.Gson;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,18 +8,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainViewController {
+    public static final String DOCUMENTS_DIR = System.getProperty("user.home") + File.separator + "Documents";
+    public static final String ARTIFACTS_DIR = DOCUMENTS_DIR + File.separator + "artifacts";
+    public static final String CONTENT_DIR = ARTIFACTS_DIR + File.separator + "content";
+    public static final String IMAGE_DIR = ARTIFACTS_DIR + File.separator + "image";
 
     @FXML
     private Button viewCatalogButton;
@@ -51,27 +47,13 @@ public class MainViewController {
         }
     }
 
-
-    @FXML
-    private void onImportJson(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Import JSON File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
-
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            System.out.println("Selected JSON: " + selectedFile.getAbsolutePath());
-            //TODO: Burda seçilen JSONLA napacaz bilmiyom
-        }
-    }
-
     @FXML
     private void onAbout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About This Program");
         alert.setHeaderText("Historical Artifact Catalog");
-        //TODO: şu açıklamayı bi ara yazarım
-        alert.setContentText("Bu Uygulama şunu şunu yapar genel açıklaması.");
+        //TODO: complete about page
+        alert.setContentText("This will be about page");
         alert.showAndWait();
     }
 
@@ -81,5 +63,10 @@ public class MainViewController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public static void createDirectories() {
+        new File(CONTENT_DIR).mkdirs();
+        new File(IMAGE_DIR).mkdirs();
     }
 }
