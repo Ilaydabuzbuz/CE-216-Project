@@ -1,6 +1,7 @@
 package com.example.ce216project;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,24 +15,23 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogViewController {
-    private static final String ARTIFACTS_DIRECTORY = FileIOController.CONTENT_DIR;
+    private static final String ARTIFACTS_DIRECTORY = MainViewController.CONTENT_DIR;
     public static List<Artifacts> artifactsList = new ArrayList<>();
-    public ObservableList<Artifacts> artifactObservableList;
-    public final Gson gson = new Gson();
+    public static ObservableList<Artifacts> artifactObservableList;
+    public static final Gson gson = new Gson();
     @FXML
     private Button addNewArtifactButton;
     @FXML
@@ -145,12 +145,19 @@ public class CatalogViewController {
 
                 deleteButton.setOnAction(event -> {
                     Artifacts artifact = getTableView().getItems().get(getIndex());
-                    System.out.println("Delete clicked for: " + artifact.getArtifactName());
-                    // TODO: Json silme
-                    /*
-                    artifactObservableList.remove(artifact);
-                    artifactsList.remove(artifact);
-                    */
+                    String filename = artifact.getArtifactid() + ".json";
+                    File file = new File(MainViewController.CONTENT_DIR, filename);
+
+                    if (file.exists()) {
+                        if (file.delete()) {
+                            artifactObservableList.remove(artifact);
+                            artifactsList.remove(artifact);
+                        } else {
+                            showError("Failed to delete the file " + filename);
+                        }
+                    } else {
+                        System.out.println("File not found: " + filename);
+                    }
                 });
             }
 
@@ -169,7 +176,10 @@ public class CatalogViewController {
         loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY));
     }
 
-    private void loadArtifactsFromDirectory(Path directoryPath) {
+    public static void loadArtifactsFromDirectory(Path directoryPath) {
+        artifactsList.clear();
+        artifactObservableList.clear();
+
         if (!Files.isDirectory(directoryPath)) {
             System.out.println("File path error");
             return;
@@ -177,8 +187,6 @@ public class CatalogViewController {
         System.out.println("Loading artifacts from: " + directoryPath.toAbsolutePath());
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(directoryPath, "*.json")) {
-            int loadedCount = 0;
-            int errorCount = 0;
             for (Path filePath : stream) {
                 System.out.println("Processing file: " + filePath.getFileName());
                 try (BufferedReader reader = Files.newBufferedReader(filePath)) {
@@ -186,22 +194,17 @@ public class CatalogViewController {
 
                     if (artifact != null && artifact.getArtifactName() != null) {
                         artifactsList.add(artifact);
-                        loadedCount++;
                     } else {
                         System.err.println("Warning: Invalid or incomplete artifact data in file: " + filePath.getFileName());
-                        errorCount++;
                     }
 
                 } catch (JsonSyntaxException e) {
                     System.err.println("Error parsing JSON file: " + filePath.getFileName() + " - " + e.getMessage());
-                    errorCount++;
                 } catch (IOException e) {
                     System.err.println("Error reading file: " + filePath.getFileName() + " - " + e.getMessage());
-                    errorCount++;
                 }
             }
             artifactObservableList.addAll(artifactsList);
-            System.out.println("Finished loading. Loaded " + loadedCount + " artifacts. Encountered " + errorCount + " errors.");
 
         } catch (IOException e) {
             System.out.println("Loading Error");
@@ -246,6 +249,61 @@ public class CatalogViewController {
     }
 
     @FXML
+    private void onImportArtifact(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Import JSON File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null && selectedFile.exists() && selectedFile.isFile()) {
+            try {
+                MainViewController.createDirectories(); // Ensure directory exists
+                Path destinationPath = Path.of(MainViewController.CONTENT_DIR, selectedFile.getName());
+                Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("File successfully imported to: " + destinationPath);
+            } catch (IOException e) {
+                System.out.println("Error importing file: " + e.getMessage());
+            }
+        } else {
+            showError("File didn't imported");
+        }
+    }
+
+    public void exportArtifact(Artifacts artifact, File file) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(artifact);
+
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(json);
+            showError("Success");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Error");
+        }
+    }
+
+    @FXML
+    private void onExportArtifact(ActionEvent event) {
+        Artifacts selectedArtifact = artifactsTableView.getSelectionModel().getSelectedItem();
+        if (selectedArtifact == null) {
+            showError("You must select file to export");
+            return;
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Artifact as JSON");
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            exportArtifact(selectedArtifact, file);
+        }
+    }
+
+    @FXML
     private void onHelp(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("How to Use This Program");
@@ -253,6 +311,11 @@ public class CatalogViewController {
         //TODO: bunu da yazarım unutmayayım böyle kalmasın
         alert.setContentText("Sayfanın nasıl kullanılacağının açıklaması");
         alert.showAndWait();
+    }
+
+    @FXML
+    private void onRefresh(ActionEvent event) {
+        loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY));
     }
 
     private void showError(String message) {
