@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -71,6 +72,8 @@ public class CatalogViewController {
     private TableColumn<Artifacts, String> col_weight;
     @FXML
     private TableColumn<Artifacts, String> col_tags;
+    @FXML
+    private TableColumn<Artifacts, String> col_update;
 
     public void initialize(){
         artifactObservableList = FXCollections.observableArrayList();
@@ -112,6 +115,57 @@ public class CatalogViewController {
             }
         }
     });
+
+        col_update.setCellFactory(column -> new TableCell<Artifacts, String>() {
+            private final Button editButton = new Button("Edit");
+            private final Button deleteButton = new Button("Delete");
+            private final HBox hbox = new HBox(10);
+
+            {
+                hbox.getChildren().addAll(editButton, deleteButton);
+
+                editButton.setOnAction(event -> {
+                    Artifacts selectedArtifact = getTableView().getItems().get(getIndex());
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("edit-artifact-view.fxml"));
+                        Parent root = loader.load();
+
+                        EditArtifactViewController controller = loader.getController();
+                        controller.setArtifact(selectedArtifact);
+
+                        Stage stage = new Stage();
+                        stage.setTitle("Edit Artifact");
+                        stage.setScene(new Scene(root));
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.show();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+
+                deleteButton.setOnAction(event -> {
+                    Artifacts artifact = getTableView().getItems().get(getIndex());
+                    System.out.println("Delete clicked for: " + artifact.getArtifactName());
+                    // TODO: Json silme
+                    /*
+                    artifactObservableList.remove(artifact);
+                    artifactsList.remove(artifact);
+                    */
+                });
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(hbox);
+                }
+            }
+        });
 
         artifactsTableView.setItems(artifactObservableList);
         loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY));
