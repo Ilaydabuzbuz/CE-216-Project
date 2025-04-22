@@ -292,6 +292,7 @@ public class CatalogViewController {
 
     }
 
+    @FXML
     private void onSearch(ActionEvent event) {
         search();
     }
