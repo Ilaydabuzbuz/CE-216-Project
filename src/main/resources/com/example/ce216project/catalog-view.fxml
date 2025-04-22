@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="510.0" prefWidth="970.0" styleClass="dark-background" stylesheets="@styles/catalog-style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ce216project.CatalogViewController">
+<AnchorPane prefHeight="524.0" prefWidth="1243.0" styleClass="dark-background" stylesheets="@styles/catalog-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ce216project.CatalogViewController">
    <children>
       <TableView fx:id="artifactsTableView" layoutY="44.0" prefHeight="464.0" prefWidth="970.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="46.0">
         <columns>
-            <TableColumn fx:id="col_image" prefWidth="75.0" text="Preview" />
-          <TableColumn fx:id="col_id" prefWidth="66.66666615009308" text="Artifact ID" />
-          <TableColumn fx:id="col_name" prefWidth="84.53333282470703" text="Artifact Name" />
-            <TableColumn fx:id="col_category" prefWidth="67.46662902832031" text="Category" />
-            <TableColumn fx:id="col_civilization" prefWidth="68.0" text="Civizilation" />
-            <TableColumn fx:id="col_discovery" prefWidth="111.73330688476562" text="Discovery Location" />
-            <TableColumn fx:id="col_composition" prefWidth="81.86663818359375" text="Composition" />
-            <TableColumn fx:id="col_date" prefWidth="96.0" text="Discovery Date" />
-            <TableColumn fx:id="col_place" minWidth="0.0" prefWidth="74.13330078125" text="Current Place" />
-            <TableColumn fx:id="col_dimensions" prefWidth="85.86669921875" text="Dimensions" />
-            <TableColumn fx:id="col_weight" prefWidth="48.533447265625" text="Weight" />
-            <TableColumn fx:id="col_tags" prefWidth="78.39996337890625" text="Tags" />
-            <TableColumn prefWidth="103.2000732421875" text="Update" />
+            <TableColumn fx:id="col_image" prefWidth="113.06665182113647" text="Preview" />
+          <TableColumn fx:id="col_id" prefWidth="97.59996795654297" text="Artifact ID" />
+          <TableColumn fx:id="col_name" prefWidth="104.53334045410156" text="Artifact Name" />
+            <TableColumn fx:id="col_category" minWidth="0.0" prefWidth="87.46661376953125" text="Category" />
+            <TableColumn fx:id="col_civilization" prefWidth="81.86660766601562" text="Civizilation" />
+            <TableColumn fx:id="col_discovery" prefWidth="125.60003662109375" text="Discovery Location" />
+            <TableColumn fx:id="col_composition" prefWidth="83.2000732421875" text="Composition" />
+            <TableColumn fx:id="col_date" prefWidth="119.19989013671875" text="Discovery Date" />
+            <TableColumn fx:id="col_place" minWidth="0.0" prefWidth="84.53326416015625" text="Current Place" />
+            <TableColumn fx:id="col_dimensions" minWidth="9.5999755859375" prefWidth="84.00006103515625" text="Dimensions" />
+            <TableColumn fx:id="col_weight" minWidth="0.0" prefWidth="59.19989013671875" text="Weight" />
+            <TableColumn fx:id="col_tags" minWidth="6.4000244140625" prefWidth="64.5333251953125" text="Tags" />
+            <TableColumn fx:id="col_update" prefWidth="128.800048828125" text="Update" />
         </columns>
       </TableView>
       <HBox prefHeight="45.0" prefWidth="976.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="0.0">
