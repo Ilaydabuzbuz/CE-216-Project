@@ -348,11 +348,11 @@ public class CatalogViewController {
                         artifact.getWeight().toString().contains(query) ||
                         artifact.getTags().contains(query)) {
                     filteredList.add(artifact);
-                    artifactsTableView.setItems(filteredList);
                 }
             }
         }
-
+        //artifactsTableView.setPlaceholder(new Label("No results found")); // may be handled differently
+        artifactsTableView.setItems(filteredList);
     }
 
     @FXML

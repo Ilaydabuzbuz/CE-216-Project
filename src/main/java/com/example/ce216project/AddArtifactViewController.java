@@ -124,7 +124,7 @@ public class AddArtifactViewController {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter(file)) {
             gson.toJson(artifact, writer);
-            showInfo("Artifact Saved Succesfully!");
+            showInfo("Artifact Saved Successfully!");
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
             showError("Error saving artifact.");
