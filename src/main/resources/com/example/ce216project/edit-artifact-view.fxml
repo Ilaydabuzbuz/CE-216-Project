@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <GridPane fx:id="addArtifactPane" alignment="CENTER" hgap="10" styleClass="grid-pane" stylesheets="@styles/add-artifact-style.css" vgap="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ce216project.EditArtifactViewController">
-
     <Label style="-fx-font-weight: bold;" text="Edit attributes:" GridPane.columnSpan="2" />
 
     <Label text="Edit artifact name:" GridPane.rowIndex="1" />
@@ -44,7 +43,7 @@
 
     <Label text="Edit picture:" GridPane.rowIndex="11" />
 
-    <Button text="Save" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
+    <Button onAction="#onEditArtifact" text="Save" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
     <DatePicker fx:id="dateField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
     <TextField fx:id="placeField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
     <Button fx:id="imageButton" mnemonicParsing="false" onAction="#onSelectImage" GridPane.columnIndex="1" GridPane.rowIndex="11">
