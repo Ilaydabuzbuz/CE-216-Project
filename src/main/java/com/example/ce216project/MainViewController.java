@@ -40,6 +40,7 @@ public class MainViewController {
             stage.setScene(new Scene(catalogRoot));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
+            createDirectories();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,6 +67,7 @@ public class MainViewController {
     }
 
     public static void createDirectories() {
+        new File(ARTIFACTS_DIR).mkdirs();
         new File(CONTENT_DIR).mkdirs();
         new File(IMAGE_DIR).mkdirs();
     }

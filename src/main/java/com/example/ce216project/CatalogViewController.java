@@ -2,6 +2,7 @@ package com.example.ce216project;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -154,6 +155,7 @@ public class CatalogViewController {
                         if (file.delete()) {
                             artifactObservableList.remove(artifact);
                             artifactsList.remove(artifact);
+
                         } else {
                             showError("Failed to delete the file " + filename);
                         }
@@ -178,7 +180,7 @@ public class CatalogViewController {
         loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY));
     }
 
-    public static void loadArtifactsFromDirectory(Path directoryPath) {
+    public void loadArtifactsFromDirectory(Path directoryPath) {
         artifactsList.clear();
         artifactObservableList.clear();
 
@@ -207,6 +209,9 @@ public class CatalogViewController {
                 }
             }
             artifactObservableList.addAll(artifactsList);
+            ObservableList<Artifacts> listt = FXCollections.observableArrayList(artifactsList);
+            artifactsTableView.setItems(listt);
+
 
         } catch (IOException e) {
             System.out.println("Loading Error");
@@ -250,6 +255,7 @@ public class CatalogViewController {
         }
     }
 
+
     @FXML
     private void onImportArtifact(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -259,17 +265,33 @@ public class CatalogViewController {
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null && selectedFile.exists() && selectedFile.isFile()) {
             try {
-                MainViewController.createDirectories(); // Ensure directory exists
-                Path destinationPath = Path.of(MainViewController.CONTENT_DIR, selectedFile.getName());
-                Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("File successfully imported to: " + destinationPath);
-            } catch (IOException e) {
+                String content = Files.readString(selectedFile.toPath());
+
+                Gson gson = new Gson();
+                JsonObject jsonObject = gson.fromJson(content, JsonObject.class);
+
+                if (jsonObject.has("artifactid")) {
+                    String artifactId = jsonObject.get("artifactid").getAsString();
+
+                    MainViewController.createDirectories();
+
+                    Path destinationPath = Path.of(MainViewController.CONTENT_DIR, artifactId + ".json");
+
+                    Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+
+                    System.out.println("File successfully imported and renamed to: " + destinationPath);
+                } else {
+                    showError("Invalid file: artifactId not found.");
+                }
+
+            } catch (IOException | JsonSyntaxException e) {
                 System.out.println("Error importing file: " + e.getMessage());
             }
         } else {
-            showError("File didn't imported");
+            showError("File didn't import.");
         }
     }
+
 
     public void exportArtifact(Artifacts artifact, File file) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
