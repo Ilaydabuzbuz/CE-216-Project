@@ -117,6 +117,7 @@ public class CatalogViewController {
         }
     });
 
+
         col_update.setCellFactory(column -> new TableCell<Artifacts, String>() {
             private final Button editButton = new Button("Edit");
             private final Button deleteButton = new Button("Delete");
@@ -176,8 +177,36 @@ public class CatalogViewController {
             }
         });
 
+        artifactsTableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                Artifacts selectedArtifact = artifactsTableView.getSelectionModel().getSelectedItem();
+                if (selectedArtifact != null) {
+                    openArtifactDetailPage(selectedArtifact);
+                }
+            }
+        });
+
         artifactsTableView.setItems(artifactObservableList);
         loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY));
+    }
+
+    private void openArtifactDetailPage(Artifacts artifact) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("artifact-detail-view.fxml"));
+            Parent root = loader.load();
+
+            ArtifactDetailViewController controller = loader.getController();
+            controller.setArtifact(artifact);
+
+            Stage stage = new Stage();
+            stage.setTitle("Artifact Details");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Failed to load artifact detail view.");
+        }
     }
 
     public void loadArtifactsFromDirectory(Path directoryPath) {
