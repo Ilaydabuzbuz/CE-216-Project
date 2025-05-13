@@ -142,6 +142,7 @@ public class CatalogViewController {
                         stage.setTitle("Edit Artifact");
                         stage.setScene(new Scene(root));
                         stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.setOnHidden(e -> loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY)));
                         stage.show();
 
                     } catch (IOException e) {
@@ -157,9 +158,7 @@ public class CatalogViewController {
 
                     if (file.exists()) {
                         if (file.delete()) {
-                            artifactObservableList.remove(artifact);
-                            artifactsList.remove(artifact);
-
+                            loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY));
                         } else {
                             showError("Failed to delete the file " + filename);
                         }
@@ -244,9 +243,8 @@ public class CatalogViewController {
                     System.err.println("Error reading file: " + filePath.getFileName() + " - " + e.getMessage());
                 }
             }
-            artifactObservableList.addAll(artifactsList);
-            ObservableList<Artifacts> listt = FXCollections.observableArrayList(artifactsList);
-            artifactsTableView.setItems(listt);
+            artifactObservableList.setAll(artifactsList);
+            artifactsTableView.setItems(artifactObservableList);
 
 
         } catch (IOException e) {
@@ -265,6 +263,7 @@ public class CatalogViewController {
             stage.setTitle("Add New Artifact");
             stage.setScene(new Scene(catalogRoot));
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnHidden(e -> loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY)));
             stage.show();
 
         } catch (IOException e) {
@@ -329,6 +328,7 @@ public class CatalogViewController {
                     Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
 
                     System.out.println("File successfully imported and renamed to: " + destinationPath);
+                    loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY));
                 } else {
                     showError("Invalid file: artifactId not found.");
                 }
