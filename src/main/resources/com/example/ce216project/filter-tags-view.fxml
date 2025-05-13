@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER_LEFT" prefHeight="182.0" prefWidth="241.0" spacing="10" styleClass="vbox" stylesheets="@styles/filter-tags-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ce216project.FilterTagsViewController">
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.ce216project.FilterTagsViewController"
+            stylesheets="@styles/filter-tags-style.css"
+            prefHeight="300.0" prefWidth="300.0"
+            styleClass="anchor-pane">
+            
+    <VBox fx:id="tagsVBox"
+          styleClass="vbox"
+          layoutX="20.0"
+          layoutY="20.0"
+          prefHeight="220.0"
+          prefWidth="260.0"
+          spacing="10.0" />
 
-    <CheckBox fx:id="tag1CheckBox" text="Tag 1" />
-    <CheckBox fx:id="tag2CheckBox" text="Tag 2" />
-    <CheckBox fx:id="tag3CheckBox" text="Tag 3" />
-    <CheckBox fx:id="tag4CheckBox" text="Tag 4" />
-
-    <Button text="Apply" />
-</VBox>
+    <Button text="Apply"
+            styleClass="button"
+            onAction="#onApplyClicked"
+            prefWidth="100.0"
+            AnchorPane.bottomAnchor="20.0"
+            AnchorPane.leftAnchor="100.0"
+            AnchorPane.rightAnchor="100.0"/>
+</AnchorPane>

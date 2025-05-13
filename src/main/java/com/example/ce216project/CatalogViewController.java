@@ -26,13 +26,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CatalogViewController {
     private static final String ARTIFACTS_DIRECTORY = MainViewController.CONTENT_DIR;
     public static List<Artifacts> artifactsList = new ArrayList<>();
     public static ObservableList<Artifacts> artifactObservableList;
     public static final Gson gson = new Gson();
+    private final Set<String> allTags = new HashSet<>();
     @FXML
     private TextField searchField;
     @FXML
@@ -212,6 +215,7 @@ public class CatalogViewController {
     public void loadArtifactsFromDirectory(Path directoryPath) {
         artifactsList.clear();
         artifactObservableList.clear();
+        allTags.clear();
 
         if (!Files.isDirectory(directoryPath)) {
             System.out.println("File path error");
@@ -227,6 +231,9 @@ public class CatalogViewController {
 
                     if (artifact != null && artifact.getArtifactName() != null) {
                         artifactsList.add(artifact);
+                        if (artifact.getTags() != null) {
+                            allTags.addAll(artifact.getTags());
+                        }
                     } else {
                         System.err.println("Warning: Invalid or incomplete artifact data in file: " + filePath.getFileName());
                     }
@@ -272,11 +279,24 @@ public class CatalogViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("filter-tags-view.fxml"));
             Parent catalogRoot = loader.load();
 
+            FilterTagsViewController controller = loader.getController();
+            controller.setAvailableTags(allTags);
+
             Stage stage = new Stage();
             stage.setTitle("Pick Tags");
             stage.setScene(new Scene(catalogRoot));
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
+            stage.showAndWait();
+
+            Set<String> selectedTags = controller.getSelectedTags();
+            System.out.println("Selected Tags: " + selectedTags);
+
+            if (!selectedTags.isEmpty()) {
+                List<Artifacts> filtered = artifactsList.stream()
+                    .filter(a -> a.getTags() != null && a.getTags().stream().anyMatch(selectedTags::contains))
+                    .toList();
+                artifactsTableView.setItems(FXCollections.observableArrayList(filtered));
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -17,7 +17,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AddArtifactViewController {
     private String selectedImagePath;
@@ -102,9 +105,11 @@ public class AddArtifactViewController {
         artifact.setCurrentPlace(placeField.getText());
         artifact.setDimensions(dimensionsField.getText());
         artifact.setWeight(Double.valueOf(weightField.getText()));
-        artifact.setTags(Collections.singletonList(tagsField.getText()));
+        // Tags formatting
+        String tagInput = tagsField.getText();
+        List<String> tagList = Arrays.stream(tagInput.split(",")).map(String::trim).filter(s -> !s.isEmpty()).collect(Collectors.toList());
         artifact.setImagePath(selectedImagePath);
-
+        artifact.setTags(tagList);
         // Date formatting
         LocalDate localDate = dateField.getValue();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");

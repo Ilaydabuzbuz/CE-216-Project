@@ -36,7 +36,7 @@
             <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearch" prefHeight="26.0" prefWidth="75.0" text="Search" />
             <Button fx:id="resetButton" disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Reset" />
             <Button fx:id="addNewArtifactButton" mnemonicParsing="false" onAction="#onAddNewArtifact" prefHeight="26.0" prefWidth="145.0" text="Add New Artifact" />
-            <Button fx:id="filterByTagsButton" disable="true" mnemonicParsing="false" onAction="#onFilterTags" prefHeight="26.0" prefWidth="145.0" text="Filter by Tags" />
+            <Button fx:id="filterByTagsButton" disable="false" mnemonicParsing="false" onAction="#onFilterTags" prefHeight="26.0" prefWidth="145.0" text="Filter by Tags" />
             <Button fx:id="importButton" mnemonicParsing="false" onAction="#onImportArtifact">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
