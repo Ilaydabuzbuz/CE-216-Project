@@ -120,7 +120,8 @@ public class AddArtifactViewController {
         String date = String.valueOf(localDate.getYear());
         String place = artifact.discoveryLocation.toLowerCase().replaceAll("\\s+", "");
         String name = artifact.artifactname.length() >= 3 ? artifact.artifactname.substring(0, 3).toLowerCase() : artifact.artifactname.toLowerCase();
-        String artifactId = date + place + name;
+        String uniquePart = String.valueOf(System.currentTimeMillis() % 100000);
+        String artifactId = date + place + name + uniquePart;
         artifact.setArtifactid(artifactId);
 
         // Create JSON file
