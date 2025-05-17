@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,6 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -44,8 +47,6 @@ public class CatalogViewController {
     private Button filterByTagsButton;
     @FXML
     private Button searchButton;
-    @FXML
-    private Button resetButton;
     @FXML
     private Button helpButton;
     @FXML
@@ -381,10 +382,31 @@ public class CatalogViewController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("How to Use This Program");
         alert.setHeaderText("Historical Artifact Catalog Help");
-        //TODO: bunu da yazarım unutmayayım böyle kalmasın
-        alert.setContentText("Sayfanın nasıl kullanılacağının açıklaması");
+
+        String helpText = "How to Use the Artifact Catalog Page\n\n" +
+                "Search Box: Enter any keyword and click Search to filter artifacts across all fields.\n\n" +
+                "Add New Artifact: Click to enter detailed information and add a new artifact to the list.\n\n" +
+                "Filter by Tags: Click to choose one or more tags and filter artifacts accordingly.\n\n" +
+                "Import ⬇: Load artifact data from a JSON file.\n\n" +
+                "Export ⬆: First, select an artifact from the table, then click Export to save that single artifact into a JSON file.\n\n" +
+                "Refresh ⟳: Reset the view to show all artifacts by clearing search and tag filters.\n\n" +
+                "Edit/Delete: Update or remove a specific artifact from the catalog.\n\n" +
+                "Double-click: Double-click on an artifact to view its details in a new window.";
+
+        Label label = new Label(helpText);
+        label.setWrapText(true);
+        label.setFont(Font.font("System", 14));
+
+        VBox content = new VBox(label);
+        content.setPrefWidth(600);
+        content.setPadding(new Insets(10));
+
+        alert.getDialogPane().setContent(content);
         alert.showAndWait();
     }
+
+
+
 
     @FXML
     private void onRefresh(ActionEvent event) {

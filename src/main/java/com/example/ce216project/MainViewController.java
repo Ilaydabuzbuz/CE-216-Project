@@ -3,11 +3,14 @@ package com.example.ce216project;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -53,10 +56,24 @@ public class MainViewController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About This Program");
         alert.setHeaderText("Historical Artifact Catalog");
-        //TODO: complete about page
-        alert.setContentText("This will be about page");
+
+        String aboutText = "This application allows you to digitally catalog, manage, and explore a collection "
+                + "of historical artifacts. You can create new entries, edit existing ones, filter or search "
+                + "based on tags and attributes, and import/export the data in JSON format for easy sharing. ";
+
+        Label label = new Label(aboutText);
+        label.setWrapText(true);
+
+        VBox content = new VBox(label);
+        content.setPrefWidth(400);
+        content.setPadding(new Insets(10));
+
+        alert.getDialogPane().setContent(content);
         alert.showAndWait();
     }
+
+
+
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
