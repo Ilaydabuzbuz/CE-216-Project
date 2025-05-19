@@ -1,53 +1,86 @@
-CE-216 Historical_Artifact_Catalog_Project Team#10
-#JavaFX Desktop Application
+# CE-216 Historical_Artifact_Catalog_Project Team 10
+# Historical Artifact Catalog
 The Historical Artifact Catalog is a Windows based desktop application designed to organize and manage historical artifacts efficiently. Built using JavaFX for a user-friendly interface, this application allows users to add, edit, delete, search, and filter artifacts based on various attributes such as civilization, category, composition, and discovery location.
 
-📦 Application Features
-Developed with JavaFX for a modern, interactive GUI
-Uses Gradle for dependency management and project structure
-Reads and writes inside JSON files to store artifacts
-Ready-to-run executable file included
+## Prerequisites
 
-🔎 Notes for usage:
+**Operating System:** Windows  
+No need to install Java manually — all required dependencies and runtime are bundled with the application.
 
-Examle Json Format:
-{ "artifacts": [ { 
-"artifactId": 2025sladjsad37798, // Unique ID of the artifact 
-"artifactName": "String", // Name of the artifact 
-"category": "String", // Category or type, e.g., "Painting" 
-"civilization": "String", // The civilization artifact belongs to 
-"discoveryLocation": "String", // Place where it was discovered 
-"composition": "String", // Materials used 
-"discoveryDate": "YYYY-MM-DD", // Date it was discovered 
-"currentPlace": "String", // Where it is currently located 
-"width": Number, // Width in centimeters 
-"length": Number, // Length in centimeters 
-"height": Number, // Height in centimeters 
-"weight": Number, // Weight in kilograms 
-"tags": ["String", "..."] // List of identifier tags } ] }
+## Features and Usage
 
-Field Description:
-- Tags :This is an array (list) of strings, typically used for search/filter features.
-- User is able to filter tags after added to the system
+- **Modern GUI**: Built with JavaFX to provide an interactive and responsive interface.
+- **Artifact Management**: Add, update, and remove artifacts with detailed attributes.
+- **Search and Filter**: Quickly locate artifacts using category, civilization, tags, and more.
+- **Data Storage**: Artifacts are stored in a JSON file to allow persistent local storage.
+- **Executable Installer**: Comes with a setup wizard and desktop shortcut.
 
-💻 System Requirements:
-All java requirements and dependencies included in the installer.
+## Example JSON Format
 
-🚀 How to Run
-Simply double click the ArtifactCatalog.bat file to start the application.
+```json
+{
+  "artifacts": [
+    {
+      "artifactId": 2025,
+      "artifactName": "String",
+      "category": "String",
+      "civilization": "String",
+      "discoveryLocation": "String",
+      "composition": "String",
+      "discoveryDate": "YYYY-MM-DD",
+      "currentPlace": "String",
+      "width": Number,
+      "length": Number,
+      "height": Number,
+      "weight": Number,
+      "tags": ["String", "..."]
+    }
+  ]
+}
+```
+### Field Descriptions
 
-📦 Installation Steps
+- **Tags**: A list of strings to help classify and search for artifacts.
+- **All fields** are editable via the GUI and saved automatically to the JSON file.
 
-1.Run the ArtifactCatalog_Installer.exe file
+## User Interface
 
-2.Follow the setup wizard instructions
+### Artifact Management Panel
 
-3.(Optional) A desktop shortcut will be created after installation
+Allows users to add, edit, delete, and view artifact entries.  
 
-4.Launch the application via the shortcut or from the installation folder
+### Tag Filtering Panel
 
-🔧 Notes
-*Installer built with Inno Setup
-*The installer includes the ArtifactCatalog.exe generated
-*Default installation directory is: C:\Program Files\ArtifactCatalog (modifiable during setup)
-*No need to install Java separately — the runtime is bundled with the application
+Users can filter artifacts dynamically by selecting available tags.
+
+## System Requirements
+
+- JavaFX (bundled within the installer)  
+- Compatible with Windows 10/11  
+- JSON-based storage; no external database needed
+
+## How to Run
+
+1. Run `ArtifactCatalog_Installer.exe`.
+2. Follow the installation wizard.
+3. Launch the app via:
+   - `ArtifactCatalog.bat` file  
+   **or**  
+   - The desktop shortcut created by the installer.
+
+## File Structure
+
+- **Installer**: Built using Inno Setup  
+- **Executable**: `ArtifactCatalog.exe` is placed in `C:\Program Files\ArtifactCatalog` by default  
+- **Data Storage**: JSON file is used for artifact persistence  
+- **No additional setup required** — Java Runtime is bundled.
+
+## Project Management
+
+We used **Trello** to manage and track the project's progress and tasks throughout development.  
+Project board link:
+https://trello.com/b/reT5fU6K/kanban-template
+
+## Support
+
+For support or contributions, please contact the development tea
