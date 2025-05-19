@@ -402,13 +402,15 @@ public class CatalogViewController {
         alert.setTitle("How to Use This Program");
         alert.setHeaderText("Historical Artifact Catalog Help");
 
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/com/example/ce216project/styles/delete-style.css").toExternalForm());
+
         String helpText = "How to Use the Artifact Catalog Page\n\n" +
                 "Search Box: Enter any keyword and click Search to filter artifacts across all fields.\n\n" +
-                "Add New Artifact: Click to enter detailed information and add a new artifact to the list.\n\n" +
                 "Filter by Tags: Click to choose one or more tags and filter artifacts accordingly.\n\n" +
+                "⟳ Clear All Filters: Reset the view to show all artifacts by clearing search and tag filters.\n\n" +
+                "Add New Artifact: Click to enter detailed information and add a new artifact to the list.\n\n" +
                 "Import ⬇: Load artifact data from a JSON file.\n\n" +
                 "Export ⬆: First, select an artifact from the table, then click Export to save that single artifact into a JSON file.\n\n" +
-                "Refresh ⟳: Reset the view to show all artifacts by clearing search and tag filters.\n\n" +
                 "Edit/Delete: Update or remove a specific artifact from the catalog.\n\n" +
                 "Double-click: Double-click on an artifact to view its details in a new window.";
 

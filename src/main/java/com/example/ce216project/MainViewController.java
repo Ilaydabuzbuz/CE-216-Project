@@ -56,6 +56,7 @@ public class MainViewController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About This Program");
         alert.setHeaderText("Historical Artifact Catalog");
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/com/example/ce216project/styles/delete-style.css").toExternalForm());
 
         String aboutText = "This application allows you to digitally catalog, manage, and explore a collection "
                 + "of historical artifacts. You can create new entries, edit existing ones, filter or search "
