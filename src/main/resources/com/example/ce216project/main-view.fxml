@@ -4,23 +4,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="358.0" prefWidth="352.0" styleClass="dark-background" stylesheets="@styles/main-style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="com.example.ce216project.MainViewController">
+<AnchorPane prefHeight="358.0" prefWidth="352.0" styleClass="dark-background" stylesheets="@styles/main-style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ce216project.MainViewController">
     <children>
-      <Label layoutX="42.0" layoutY="117.0" prefHeight="26.0" prefWidth="267.0" text="HISTORICAL ARTIFACT">
-         <font>
-            <Font name="Verdana Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="125.0" layoutY="152.0" prefHeight="26.0" prefWidth="110.0" text="CATALOG">
-         <font>
-            <Font name="Verdana Bold" size="20.0" />
-         </font>
-      </Label>
-      <Button fx:id="viewCatalogButton" layoutX="98.0" layoutY="229.0" mnemonicParsing="false" onAction="#onViewCatalog" prefHeight="42.0" prefWidth="154.0" text="VIEW CATALOG">
-         <font>
-            <Font name="Verdana" size="15.0" />
-         </font>
-      </Button>
+      <VBox alignment="CENTER" prefHeight="358.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="267.0" text="HISTORICAL ARTIFACT">
+               <font>
+                  <Font name="Verdana Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="113.0" text="CATALOG">
+               <font>
+                  <Font name="Verdana Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="60.0" />
+            <Button fx:id="viewCatalogButton" alignment="CENTER" mnemonicParsing="false" onAction="#onViewCatalog" prefHeight="42.0" prefWidth="154.0" text="VIEW CATALOG">
+               <font>
+                  <Font name="Verdana" size="15.0" />
+               </font>
+            </Button>
+         </children></VBox>
       <MenuBar layoutX="-5.0" layoutY="1.0" prefHeight="26.0" prefWidth="386.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="Help">

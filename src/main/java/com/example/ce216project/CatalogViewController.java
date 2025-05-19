@@ -83,6 +83,9 @@ public class CatalogViewController {
     public void initialize(){
         artifactObservableList = FXCollections.observableArrayList();
 
+        artifactsTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+
         col_id.setCellValueFactory(new PropertyValueFactory<>("artifactid"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("artifactName"));
         col_category.setCellValueFactory(new PropertyValueFactory<>("category"));
@@ -157,15 +160,31 @@ public class CatalogViewController {
                     String filename = artifact.getArtifactid() + ".json";
                     File file = new File(MainViewController.CONTENT_DIR, filename);
 
-                    if (file.exists()) {
-                        if (file.delete()) {
-                            loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY));
-                        } else {
-                            showError("Failed to delete the file " + filename);
+                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.setTitle("Confirm Deletion");
+                    confirmationAlert.setHeaderText("Are you sure you want to delete this artifact?");
+                    confirmationAlert.setContentText("Artifact ID: " + artifact.getArtifactid());
+
+                    confirmationAlert.getDialogPane().getStylesheets().add(getClass().getResource("/com/example/ce216project/styles/delete-style.css").toExternalForm());
+
+                    ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+                    ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+
+                    confirmationAlert.getButtonTypes().setAll(yesButton, noButton);
+
+                    confirmationAlert.showAndWait().ifPresent(response -> {
+                        if (response == yesButton) {
+                            if (file.exists()) {
+                                if (file.delete()) {
+                                    loadArtifactsFromDirectory(Paths.get(ARTIFACTS_DIRECTORY));
+                                } else {
+                                    showError("Failed to delete the file " + filename);
+                                }
+                            } else {
+                                System.out.println("File not found: " + filename);
+                            }
                         }
-                    } else {
-                        System.out.println("File not found: " + filename);
-                    }
+                    });
                 });
             }
 
