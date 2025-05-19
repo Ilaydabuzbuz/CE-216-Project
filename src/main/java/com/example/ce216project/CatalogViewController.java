@@ -457,7 +457,9 @@ public class CatalogViewController {
                         artifact.getComposition().toLowerCase().contains(query) ||
                         artifact.getDiscoveryLocation().toLowerCase().contains(query) ||
                         artifact.getCurrentPlace().toLowerCase().contains(query) ||
-                        artifact.getDimensions().toLowerCase().contains(query) ||
+                        artifact.getLength().toString().contains(query) ||
+                        artifact.getWidth().toString().contains(query) ||
+                        artifact.getHeight().toString().contains(query) ||
                         artifact.getDiscoveryDate().toLowerCase().contains(query) ||
                         artifact.getWeight().toString().contains(query) ||
                         artifact.getTags().contains(query)) {

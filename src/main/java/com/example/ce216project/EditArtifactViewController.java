@@ -29,7 +29,9 @@ public class EditArtifactViewController {
     @FXML private TextField compositionField;
     @FXML private DatePicker dateField;
     @FXML private TextField placeField;
-    @FXML private TextField dimensionsField;
+    @FXML private TextField lengthField;
+    @FXML private TextField widthField;
+    @FXML private TextField heightField;
     @FXML private TextField weightField;
     @FXML private TextField tagsField;
     @FXML private Button imageButton;
@@ -57,7 +59,15 @@ public class EditArtifactViewController {
         }
 
         placeField.setText(artifact.currentPlace);
-        dimensionsField.setText(artifact.dimensions);
+        if (artifact.length != null) {
+            lengthField.setText(String.valueOf(artifact.weight));
+        }
+        if (artifact.width != null) {
+            widthField.setText(String.valueOf(artifact.width));
+        }
+        if (artifact.height != null) {
+            heightField.setText(String.valueOf(artifact.height));
+        }
 
         if (artifact.weight != null) {
             weightField.setText(String.valueOf(artifact.weight));
@@ -88,7 +98,7 @@ public class EditArtifactViewController {
         TextField[] requiredFields = {
                 nameField, categoryField, civilizationField,
                 locationField, compositionField, placeField,
-                dimensionsField, weightField, tagsField
+                lengthField, widthField, heightField, weightField, tagsField
         };
 
         for (TextField field : requiredFields) {
@@ -115,7 +125,9 @@ public class EditArtifactViewController {
         artifact.setDiscoveryLocation(locationField.getText());
         artifact.setComposition(compositionField.getText());
         artifact.setCurrentPlace(placeField.getText());
-        artifact.setDimensions(dimensionsField.getText());
+        artifact.setLength(Double.valueOf(lengthField.getText()));
+        artifact.setWidth(Double.valueOf(widthField.getText()));
+        artifact.setHeight(Double.valueOf(heightField.getText()));
         artifact.setWeight(Double.valueOf(weightField.getText()));
         artifact.setTags(Collections.singletonList(tagsField.getText()));
         artifact.setImagePath(selectedImagePath);

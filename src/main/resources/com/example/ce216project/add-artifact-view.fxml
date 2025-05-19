@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="addArtifactPane" alignment="CENTER" hgap="10" styleClass="grid-pane" stylesheets="@styles/add-artifact-style.css" vgap="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ce216project.AddArtifactViewController">
+<GridPane fx:id="addArtifactPane" alignment="CENTER" hgap="10" prefHeight="627.0" prefWidth="426.0" styleClass="grid-pane" stylesheets="@styles/add-artifact-style.css" vgap="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ce216project.AddArtifactViewController">
 
     <Label style="-fx-font-weight: bold;" text="Enter attributes" GridPane.columnSpan="2" />
 
@@ -29,26 +29,33 @@
 
     <Label text="Enter current place: *" GridPane.rowIndex="7" />
    <TextField fx:id="placeField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+   <HBox alignment="CENTER_LEFT" layoutX="400.0" prefHeight="0.0" prefWidth="376.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="9">
+      <children>
+      
+          <Label prefHeight="27.0" prefWidth="150.0" text="Enter dimensions: *" />
+          <TextField fx:id="lengthField" alignment="CENTER" prefWidth="66.0" promptText="L" />
+         <TextField fx:id="widthField" alignment="CENTER" prefWidth="66.0" promptText="W" />
+         <TextField fx:id="heightField" alignment="CENTER" prefWidth="66.0" promptText="H" />
+      </children>
+   </HBox>
 
-    <Label text="Enter dimensions: *" GridPane.rowIndex="8" />
-    <TextField fx:id="dimensionsField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+    <Label text="Enter weight: *" GridPane.rowIndex="10" />
+    <TextField fx:id="weightField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
-    <Label text="Enter weight: *" GridPane.rowIndex="9" />
-    <TextField fx:id="weightField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+    <Label text="Enter tags: *" GridPane.rowIndex="11" />
+    <TextField fx:id="tagsField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
 
-    <Label text="Enter tags: *" GridPane.rowIndex="10" />
-    <TextField fx:id="tagsField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-
-    <Label text="Select picture" GridPane.rowIndex="11" />
+    <Label text="Select picture" GridPane.rowIndex="12" />
 
     <Button onAction="#onCreateArtifact" text="Create" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="0" />
-   <Button fx:id="imageButton" mnemonicParsing="false" onAction="#onSelectImage" GridPane.columnIndex="1" GridPane.rowIndex="11">
+   <Button fx:id="imageButton" mnemonicParsing="false" onAction="#onSelectImage" GridPane.columnIndex="1" GridPane.rowIndex="12">
       <graphic>
           <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
       </graphic>
    </Button>
 
    <columnConstraints>
+      <ColumnConstraints />
       <ColumnConstraints />
       <ColumnConstraints />
    </columnConstraints>
@@ -61,7 +68,8 @@
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
-      <RowConstraints />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+      <RowConstraints maxHeight="27.0" minHeight="27.0" prefHeight="27.0" />
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
