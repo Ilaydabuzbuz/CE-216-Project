@@ -83,4 +83,4 @@ https://trello.com/b/reT5fU6K/kanban-template
 
 ## Support
 
-For support or contributions, please contact the development tea
+For support or contributions, please contact the development team or refer to the system documentation.
