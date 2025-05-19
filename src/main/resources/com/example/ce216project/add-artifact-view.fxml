@@ -22,10 +22,10 @@
     <TextField fx:id="locationField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
     <Label text="Enter composition: *" GridPane.rowIndex="5" />
-    <TextField fx:id="compositionField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+    <TextField fx:id="compositionField" promptText="Example: Gold" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
     <Label text="Enter discovery date: *" GridPane.rowIndex="6" />
-   <DatePicker fx:id="dateField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+   <DatePicker fx:id="dateField" promptText="DD-MM-YYY" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
     <Label text="Enter current place: *" GridPane.rowIndex="7" />
    <TextField fx:id="placeField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
@@ -39,11 +39,11 @@
       </children>
    </HBox>
 
-    <Label text="Enter weight: *" GridPane.rowIndex="10" />
+    <Label text="Enter weight (kg): *" GridPane.rowIndex="10" />
     <TextField fx:id="weightField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
     <Label text="Enter tags: *" GridPane.rowIndex="11" />
-    <TextField fx:id="tagsField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+    <TextField fx:id="tagsField" promptText="Example: tag1,tag2" GridPane.columnIndex="1" GridPane.rowIndex="11" />
 
     <Label text="Select picture" GridPane.rowIndex="12" />
 

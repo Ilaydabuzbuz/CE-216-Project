@@ -20,7 +20,7 @@
             <TableColumn fx:id="col_date" prefWidth="119.19989013671875" text="Discovery Date" />
             <TableColumn fx:id="col_place" minWidth="0.0" prefWidth="84.53326416015625" text="Current Place" />
             <TableColumn fx:id="col_dimensions" minWidth="9.5999755859375" prefWidth="84.00006103515625" text="Dimensions (L*W*H)" />
-            <TableColumn fx:id="col_weight" minWidth="0.0" prefWidth="59.19989013671875" text="Weight" />
+            <TableColumn fx:id="col_weight" minWidth="0.0" prefWidth="59.19989013671875" text="Weight (kg)" />
             <TableColumn fx:id="col_tags" minWidth="6.4000244140625" prefWidth="64.5333251953125" text="Tags" />
             <TableColumn fx:id="col_update" prefWidth="128.800048828125" text="Update" />
         </columns>

@@ -25,7 +25,7 @@
 
     <Label text="Dimensions:" GridPane.rowIndex="8" />
 
-    <Label text="Weight:" GridPane.rowIndex="9" />
+    <Label text="Weight (kg):" GridPane.rowIndex="9" />
 
     <Label text="Tags:" GridPane.rowIndex="10" />
    <ImageView fx:id="artifactImageView" fitHeight="150.0" fitWidth="219.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
