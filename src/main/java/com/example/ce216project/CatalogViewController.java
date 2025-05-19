@@ -77,6 +77,7 @@ public class CatalogViewController {
     private TableColumn<Artifacts, String> col_update;
 
     public void initialize(){
+
         artifactObservableList = FXCollections.observableArrayList();
 
         col_id.setCellValueFactory(new PropertyValueFactory<>("artifactid"));
@@ -134,6 +135,7 @@ public class CatalogViewController {
 
                         EditArtifactViewController controller = loader.getController();
                         controller.setArtifact(selectedArtifact);
+                        controller.setCatalogViewController(CatalogViewController.this);
 
                         Stage stage = new Stage();
                         stage.setTitle("Edit Artifact");
@@ -154,6 +156,7 @@ public class CatalogViewController {
 
                     if (file.exists()) {
                         if (file.delete()) {
+                            loadArtifactsFromDirectory(Paths.get(MainViewController.CONTENT_DIR));
                             artifactObservableList.remove(artifact);
                             artifactsList.remove(artifact);
 
@@ -254,6 +257,9 @@ public class CatalogViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("add-artifact-view.fxml"));
             Parent catalogRoot = loader.load();
 
+            AddArtifactViewController controller = loader.getController();
+            controller.setCatalogViewController(this);
+
             Stage stage = new Stage();
             stage.setTitle("Add New Artifact");
             stage.setScene(new Scene(catalogRoot));
@@ -309,6 +315,8 @@ public class CatalogViewController {
                     Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
 
                     System.out.println("File successfully imported and renamed to: " + destinationPath);
+                    showInfo("File imported successfully!");
+                    loadArtifactsFromDirectory(Paths.get(MainViewController.CONTENT_DIR));
                 } else {
                     showError("Invalid file: artifactId not found.");
                 }
@@ -379,6 +387,15 @@ public class CatalogViewController {
         alert.showAndWait();
     }
 
+    private void showInfo(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success!");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
     private void search() {
         String query = searchField.getText().toLowerCase().trim();
         ObservableList<Artifacts> filteredList = FXCollections.observableArrayList();
@@ -405,6 +422,7 @@ public class CatalogViewController {
         //artifactsTableView.setPlaceholder(new Label("No results found")); // may be handled differently
         artifactsTableView.setItems(filteredList);
     }
+
 
     @FXML
     private void onSearch(ActionEvent event) {

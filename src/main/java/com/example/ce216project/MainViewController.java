@@ -15,10 +15,18 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainViewController {
+    //Updated artifacts path finder to install application inside the setup path.
+    public static final String INSTALL_DIR = System.getProperty("user.dir");
+    public static final String ARTIFACTS_DIR = INSTALL_DIR + File.separator + "artifacts";
+    public static final String CONTENT_DIR = ARTIFACTS_DIR + File.separator + "content";
+    public static final String IMAGE_DIR = ARTIFACTS_DIR + File.separator + "image";
+
+    /*
     public static final String DOCUMENTS_DIR = System.getProperty("user.home") + File.separator + "Documents";
     public static final String ARTIFACTS_DIR = DOCUMENTS_DIR + File.separator + "artifacts";
     public static final String CONTENT_DIR = ARTIFACTS_DIR + File.separator + "content";
     public static final String IMAGE_DIR = ARTIFACTS_DIR + File.separator + "image";
+     */
 
     @FXML
     private Button viewCatalogButton;

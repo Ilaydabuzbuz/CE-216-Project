@@ -11,16 +11,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 
 public class EditArtifactViewController {
     private String selectedImagePath;
+    private CatalogViewController catalogViewController; // Reference to CatalogViewController
 
     @FXML private TextField nameField;
     @FXML private TextField categoryField;
@@ -36,6 +39,11 @@ public class EditArtifactViewController {
     @FXML private ImageView imageView;
 
     private Artifacts artifact;
+
+
+    public void setCatalogViewController(CatalogViewController catalogViewController) {
+        this.catalogViewController = catalogViewController;
+    }
 
     public void setArtifact(Artifacts artifact) {
         this.artifact = artifact;
@@ -135,6 +143,7 @@ public class EditArtifactViewController {
         try (FileWriter writer = new FileWriter(file)) {
             gson.toJson(artifact, writer);
             showInfo("Artifact Edited Successfully!");
+            closeWindow();
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
             showError("Error editing artifact.");
@@ -172,5 +181,21 @@ public class EditArtifactViewController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void closeWindow() {
+        if (catalogViewController != null) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(100);
+                    catalogViewController.loadArtifactsFromDirectory(Paths.get(MainViewController.CONTENT_DIR));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+
+        Stage stage = (Stage) nameField.getScene().getWindow();
+        stage.close();
     }
 }

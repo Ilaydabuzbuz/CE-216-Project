@@ -11,11 +11,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 
@@ -56,6 +59,13 @@ public class AddArtifactViewController {
 
     @FXML
     private ImageView imageView;
+
+    private CatalogViewController catalogViewController;
+
+    public void setCatalogViewController(CatalogViewController catalogViewController) {
+        this.catalogViewController = catalogViewController;
+    }
+
 
     @FXML
     private void onCreateArtifact(ActionEvent event) {
@@ -125,12 +135,12 @@ public class AddArtifactViewController {
         try (FileWriter writer = new FileWriter(file)) {
             gson.toJson(artifact, writer);
             showInfo("Artifact Saved Successfully!");
+            closeWindow();
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
             showError("Error saving artifact.");
         }
     }
-
 
     @FXML
     private void onSelectImage(ActionEvent event){
@@ -162,5 +172,21 @@ public class AddArtifactViewController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void closeWindow() {
+        if (catalogViewController != null) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(100);
+                    catalogViewController.loadArtifactsFromDirectory(Paths.get(MainViewController.CONTENT_DIR));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+
+        Stage stage = (Stage) nameField.getScene().getWindow();
+        stage.close();
     }
 }
