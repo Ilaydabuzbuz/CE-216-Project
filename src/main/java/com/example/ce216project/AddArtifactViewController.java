@@ -90,7 +90,7 @@ public class AddArtifactViewController {
         if (!allValid || dateField.getValue() == null || selectedImagePath.isEmpty()) {
             dateField.setStyle("-fx-border-color: red;");
             if (selectedImagePath.isEmpty()) {
-                selectedImagePath = getClass().getResource("/com/example/ce216project/icons/default_icon.png").toString();
+                selectedImagePath = MainViewController.IMAGE_DIR + File.separator + "default_icon.png";
             }
             showError("Please fill in all required fields.");
             return;

@@ -18,8 +18,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainViewController {
-    public static final String DOCUMENTS_DIR = System.getProperty("user.home") + File.separator + "Documents";
-    public static final String ARTIFACTS_DIR = DOCUMENTS_DIR + File.separator + "artifacts";
+    public static final String INSTALL_DIR = new File(System.getProperty("user.dir")).getParent();
+    public static final String ARTIFACTS_DIR = INSTALL_DIR + File.separator + "artifacts";
     public static final String CONTENT_DIR = ARTIFACTS_DIR + File.separator + "content";
     public static final String IMAGE_DIR = ARTIFACTS_DIR + File.separator + "image";
 
@@ -35,6 +35,7 @@ public class MainViewController {
     @FXML
     private void onViewCatalog(ActionEvent event) {
         try {
+            createDirectories();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("catalog-view.fxml"));
             Parent catalogRoot = loader.load();
 
@@ -43,7 +44,6 @@ public class MainViewController {
             stage.setScene(new Scene(catalogRoot));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
-            createDirectories();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,6 +85,11 @@ public class MainViewController {
     }
 
     public static void createDirectories() {
+        System.out.println("Creating directories:");
+        System.out.println("→ " + ARTIFACTS_DIR);
+        System.out.println("→ " + CONTENT_DIR);
+        System.out.println("→ " + IMAGE_DIR);
+
         new File(ARTIFACTS_DIR).mkdirs();
         new File(CONTENT_DIR).mkdirs();
         new File(IMAGE_DIR).mkdirs();

@@ -55,3 +55,11 @@ jlink {
 jlinkZip {
   group = 'distribution'
 }
+
+sourceSets {
+  main {
+    resources {
+      srcDir 'src/main/resources'
+    }
+  }
+}
